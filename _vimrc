@@ -1,112 +1,201 @@
-""" 기본적인 설정들
-""" ========================================================
+"========================================================================
+" vimrc 2011.11.23~
 
-
-"I have had problems with this is the past, even with the matchit plugin. The way I solved it was to modify b:match_words on xml-type files. Here is the relevant section from my .vimrc:
-"autocmd FileType html let b:match_words = '<\(\w\w*\):</\1,{:}'
-"autocmd FileType xhtml let b:match_words = '<\(\w\w*\):</\1,{:}'
-"autocmd FileType xml let b:match_words = '<\(\w\w*\):</\1,{:}'
-"Try it out, see if it helps any.
-
-"Vim 7: Turning completion on
-"Omni completion isn't automatically turned on for Vim 7, and it's super useful if you code in CSS or HTML.
-"In your vimrc you can add following to turn completion on:
-"autocmd FileType python set omnifunc=pythoncomplete#Complete
-"autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-"autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-"autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-"autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-"autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-"autocmd FileType c set omnifunc=ccomplete#Complete
-"You complete things with CTRL-X O.
-"CSS completion in action:
-
-map <leader>fj :set ft=javascript<cr>
-map <leader>fh :set ft=html<cr>
+"========================================================================
+" testing...
 "au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
 let g:SimpleJsIndenter_BriefMode = 1
 "let g:js_indent ="C:\Program Files\Vim\vimfiles\indent\javascript.vim"
 let g:js_indent_log = 0
-set ignorecase
+
+"========================================================================
+" MAPPING
+map <leader>fj :set ft=javascript<cr>
+map <leader>fh :set ft=html<cr>
 
 map th :tabprev<CR>
 map tl :tabnext<CR>
 map tn :tabnew<CR>
 map td :tabclose<CR>
-filetype plugin indent on
-filetype plugin on
 
-
-set ai ts=4 sts=4 et sw=4 "python standard tab format
-
-
-let g:pyflakes_use_quickfix=1
-"minibufexpl.vim 로드 안되게 플러그인 자동로드 하지 않은다음(set noloadplugins) minibufexpl만 제외한 플러그인로드
-"set noloadplugins
-"runtime! plugin/[^\<minibufexpl\>]*.vim
-
-hi TabLineFill    ctermfg=black
-hi TabLineSel     ctermbg=blue
-hi PmenuSel ctermbg=blue
-
-nnoremap <silent> <leader>fb     :FufBuffer<CR>
-nnoremap <silent> <leader>fa     :FufCoverageFile<CR>
-nnoremap <silent> <leader>ff :FufFile<CR>
-nnoremap <silent> <leader>fd :FufDir<CR>
-
-"nmap <silent> <F2> :w<cr>:!"C:\Program Files\Internet explorer\iexplore.exe" Chaosrank.com<CR>
-imap <F2> :w<cr>:!"C:\Program Files\Internet explorer\iexplore.exe" Chaosrank.com<CR>
 map <Tab> gt
 map <S-Tab> gT
 vmap <Tab> >gv
 vmap <S-Tab> <gv
 
-" toggling menu for GVIM
-map <silent> <C-F2> :if &guioptions =~# 'T' <Bar>
-                         \set guioptions-=T <Bar>
-                         \set guioptions-=m <Bar>
-                    \else <Bar>
-                         \set guioptions+=T <Bar>
-                         \set guioptions+=m <Bar>
-                      \endif<CR>
-nmap <silent> ;s :so C:\Program Files\Vim\_vimrc<CR>
+"화면 이동하기
+map <c-h>   <c-w>h
+map <c-j>   <c-w>j
+map <c-k>   <c-w>k
+map <c-l>   <c-w>l
 
-"----- Full Window start
-"아래 두줄을 kwc가 스크립트 짜서 알트+엔터 하나로만 최대최소화 다 가능하게 했음 ㅋ
-"map <A-CR> :simalt ~x<CR>
-"map <C-CR> :simalt ~r<CR>
-"실행시 화면 최대화
-"au GUIEnter * simalt ~x
-let g:FullWindow=0
-function! ToggleWindow()
-   if g:FullWindow==0
-      let g:FullWindow=1
-	  :simalt ~x
-   else
-      let g:FullWindow=0
-	  :simalt ~r
-   endif
-endfunction
-nmap <silent> <A-CR> :call ToggleWindow()<CR>
-"---------Full Window end
+"diffg 알트이동
+map <S-Down> ]c
+map <S-Up> [c
+map <S-Right> :diffg<CR>
 
-"========================
-map! <A-h>   <LEFT>
-map! <A-j>   <DOWN>
-map! <A-k>   <UP>
-map! <A-l>   <RIGHT>
-"========================
+"map <F10> :!start c:\program files\internet explorer\iexplore.exe http://kr.engdic.yahoo.com/result.html?p=<cword><cr>
+"<F1>컴파일후 실행까지.
+map <F1> :!clear<CR> :w!<cr>:!gcc % -o %<.exe && ./%<.exe<cr>
+"map <F2> :!clear<CR> :w!<CR>:!g++ -Wall % -o %<.exe && ./%<.exe<CR>
 
+"컴파일시 에러난코드 바로 연결해주기다~
+nmap <F10> :set makeprg=gcc\ %<CR> :w<CR> :make <CR> :cw 7<CR> 
+"map <F3> [{v]}zf
+map <F3> :WMToggle<CR>
 
+"map <F4> :21vs .<CR>:set nonumber<CR>
+map <F4> :NERDTreeToggle<CR>
+vmap <F5> :norm i//<CR>
+vmap <F6> :norm xx<CR>
+vmap nmap nnoremap
 
+map <F12> :!clear<CR> :!./%<.exe<CR>
+"<F4> 주석처리
+"map <F4> I/*<SPACE>by<SPACE>KWC<SPACE><C-R>=strftime("%Y.%m.%d")<CR><LF><SPACE><SPACE><SPACE><SPACE><Esc>A<SPACE>*/<Esc>
+"map <F4> zo
+
+"map <F6> ^Ww
+"map <F8> [i
+"map <F9> :! gcc % -o % <<CR>
+"주석처리
+"map <F4> I/*<SPACE>by<SPACE><Esc>:r!whoami<CR>v$dkwwllpA<SPACE><C-R>=strftime("%Y.%m.%d")<CR><Esc>Jxi<CR><Esc>dbi<SPACE><SPACE><Esc>A */<Esc>
+
+"========================================================================
+" Plugin : AutocomplPop
+" Command : 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" omnifunc관련 자동으로 로드 되기 위한 ft plugin on 과 indent등
+filetype plugin indent on
+filetype plugin on
+
+"========================================================================
+" Plugin : pyflakes.vim
+" Command : 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:pyflakes_use_quickfix=1
+
+"========================================================================
+" Plugin : pyflakes.vim
+" Command : 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <silent> <leader>fb     :FufBuffer<CR>
+nnoremap <silent> <leader>fa     :FufCoverageFile<CR>
+nnoremap <silent> <leader>ff :FufFile<CR>
+nnoremap <silent> <leader>fd :FufDir<CR>
+
+"========================================================================
+" Plugin : closetag.vim
+" Command : 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:closetag_html_style=1
 "au Filetype html,xml,xsl source ~/.vim/scripts/closetag.vim 
 
-"set fileencodings=euc-kr
+"========================================================================
+" Plugin : taglist.vim
+" Command : BundleSearch,  ...etc..
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Taglist를 위해 다음행추가
+nnoremap <silent> <F7> :TlistUpdate<CR> 
+nnoremap <silent> <F8> :Tlist<CR> 
+nnoremap <silent> <F9> :TlistSync<CR> 
+"출처 http://blog.naver.com/agfe2/80000756360 
+"F7 ~ F8 키를 맵핑시킨다.
+"F8 을 누르면 tag 파일이 열린다. (토글 )
+"현재 키보드위치의 태그리스트를 보려면 파일의 원하는 위치에서 F9 를 누른다.
+
+"$VIM 에서 태그파일의 위치를 검사하기위해서 다음줄을 추가
+set tags=.\tags,..\tags,
+"set tags=./tags,tags,../tags,
+
+"========================================================================
+" python 에서 ctags 활용위한 설정
+python << EOF
+import os
+import sys
+import vim
+for p in sys.path:
+    if os.path.isdir(p):
+        vim.command(r"set path+=%s" % (p.replace(" ", r"\ ")))
+EOF
+set tags+=$HOME/.vim/tags/python.ctags
+
+"========================================================================
+" Plugin : Vundle
+" Command : BundleSearch,  ...etc..
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"budle setting start
+set nocompatible               " be iMproved
+filetype off                   " required!
+set rtp+=$vim/vimfiles/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+" required! 
+Bundle 'gmarik/vundle'
+
+" My Bundles here:
+"Bundle 'fugitive.vim'
+Bundle 'FuzzyFinder'
+Bundle 'surround.vim'
+Bundle 'repeat.vim'
+Bundle 'L9'
+Bundle 'HTML-AutoCloseTag'
+Bundle 'html5.vim'
+Bundle 'The-NERD-tree'
+Bundle 'The-NERD-Commenter'
+Bundle 'a.vim'
+Bundle 'AutoComplPop'
+Bundle 'AutoClose'
+Bundle 'matchit.zip'
+Bundle 'matchparenpp'
+Bundle 'snipMate'
+Bundle 'taglist-plus'
+Bundle 'taglist.vim'
+Bundle 'tohtml_wincp'
+Bundle 'VimExplorer'
+Bundle 'Vimball'
+Bundle 'winmanager'
+Bundle 'pyflakes.vim'
+Bundle 'runzip'
+Bundle 'Toggle'
+"
+" original repos on github
+Bundle 'tpope/vim-fugitive'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+" vim-scripts repos
+"Bundle 'L9'
+"Bundle 'FuzzyFinder'
+"Bundle 'rails.vim'
+" non github repos
+"Bundle 'git://git.wincent.com/command-t.git'
+" ...
+
+filetype plugin indent on     " required! 
+"bundle setting end
+
+"========================================================================
+" schema & color & font 관련
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"set laststatus=2
+"set statusline=%<%F\ (%Y)\ [%1*%M%*%n%R%H]\ %=%8o'0x%04B\ %14(%c%V,%l/%LL%)
+"set statusline=%<%F%h%m%r%h%w%y\ %{strftime(\"%d/%m/%Y-%H:%M\")}%=\ col:%c%V\ ascii:%b\ pos:%o\ lin:%l\,%L\ %P
+
+" Tab schema
+hi TabLineFill    ctermfg=black
+hi TabLineSel     ctermbg=blue
+hi PmenuSel ctermbg=blue
+
+set ai ts=4 sts=4 et sw=4 "python standard tab format
+set nu							  
+set ignorecase
+
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8,ucs-bom,korea,euc-kr,default
 "set fileformat=dos
 "set fileformats=unix,dos
-"set encoding=cp949
-
 "set term=ansi
 set nocompatible    " Vim 디폴트 기능들을 사용함
 set tabstop=4       " <Tab> 간격
@@ -135,9 +224,9 @@ set title                       " 타이틀바에 현재 편집중인 파일을 표시
 """ ========================================================
 """ 파일 인코딩을 한국어로 설정
 """ ========================================================
-if $LANG[0] == 'k' && $LANG[1] == 'o'
-	set fileencoding=korea
-endif
+"if $LANG[0] == 'k' && $LANG[1] == 'o'
+	"set fileencoding=korea
+"endif
 
 
 """ ========================================================
@@ -194,7 +283,6 @@ hi Character ctermfg=DarkYellow
 hi Special ctermfg=DarkYellow
 hi Constant ctermfg=DarkRed
 
-set nu							  
 if has("autocmd") "이전 작업줄 표시 http://kldp.org/node/28046 에서..
 	" When editing a file, always jump to the last cursor position
 	autocmd BufReadPost *
@@ -203,105 +291,11 @@ if has("autocmd") "이전 작업줄 표시 http://kldp.org/node/28046 에서..
 				\ endif
 endif
 
+"========================================================================
+"minibufexpl.vim 로드 안되게 플러그인 자동로드 하지 않은다음(set noloadplugins) minibufexpl만 제외한 플러그인로드
+"set noloadplugins
+"runtime! plugin/[^\<minibufexpl\>]*.vim
 
-"map <F10> :!start c:\program files\internet explorer\iexplore.exe http://kr.engdic.yahoo.com/result.html?p=<cword><cr>
-"<F1>컴파일후 실행까지.
-map <F1> :!clear<CR> :w!<cr>:!gcc % -o %<.exe && ./%<.exe<cr>
-"map <F2> :!clear<CR> :w!<CR>:!g++ -Wall % -o %<.exe && ./%<.exe<CR>
+" 이 처럼도 가능
+"au TabEnter * exec ":CMiniBufExplorer"
 
-"컴파일시 에러난코드 바로 연결해주기다~
-nmap <F10> :set makeprg=gcc\ %<CR> :w<CR> :make <CR> :cw 7<CR> 
-"map <F3> [{v]}zf
-map <F3> :WMToggle<CR>
-
-"map <F4> :21vs .<CR>:set nonumber<CR>
-map <F4> :NERDTreeToggle<CR>
-vmap <F5> :norm i//<CR>
-vmap <F6> :norm xx<CR>
-vmap nmap nnoremap
-
-map <F12> :!clear<CR> :!./%<.exe<CR>
-"<F4> 주석처리
-"map <F4> I/*<SPACE>by<SPACE>KWC<SPACE><C-R>=strftime("%Y.%m.%d")<CR><LF><SPACE><SPACE><SPACE><SPACE><Esc>A<SPACE>*/<Esc>
-"map <F4> zo
-
-"map <F6> ^Ww
-"map <F8> [i
-"map <F9> :! gcc % -o % <<CR>
-"주석처리"""""""""""""""""""""""""""""""""""""""""""""""""
-"map <F4> I/*<SPACE>by<SPACE><Esc>:r!whoami<CR>v$dkwwllpA<SPACE><C-R>=strftime("%Y.%m.%d")<CR><Esc>Jxi<CR><Esc>dbi<SPACE><SPACE><Esc>A */<Esc>
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"Taglist를 위해 다음행추가
-nnoremap <silent> <F7> :TlistUpdate<CR> 
-nnoremap <silent> <F8> :Tlist<CR> 
-nnoremap <silent> <F9> :TlistSync<CR> 
-"출처 http://blog.naver.com/agfe2/80000756360 
-"F7 ~ F8 키를 맵핑시킨다.
-"F8 을 누르면 tag 파일이 열린다. (토글 )
-"현재 키보드위치의 태그리스트를 보려면 파일의 원하는 위치에서 F9 를 누른다.
-
-"$VIM 에서 태그파일의 위치를 검사하기위해서 다음줄을 추가
-set tags=.\tags,..\tags,
-"set tags=./tags,tags,../tags,
-
-"=======================
-"화면 이동하기
-map <c-h>   <c-w>h
-map <c-j>   <c-w>j
-map <c-k>   <c-w>k
-map <c-l>   <c-w>l
-"========================
-"
-"diffg 알트이동
-map <S-Down> ]c
-map <S-Up> [c
-map <S-Right> :diffg<CR>
-
-
-
-
-"set guifont=굴림:h11:cHANGEUL
-set guifont=consolas:h11
-colorscheme torte
-
-source $VIMRUNTIME/vimrc_example.vim
-source $VIMRUNTIME/mswin.vim
-behave mswin
-
-set diffexpr=MyDiff()
-function MyDiff()
-  let opt = '-a --binary '
-  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-  let arg1 = v:fname_in
-  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-  let arg2 = v:fname_new
-  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-  let arg3 = v:fname_out
-  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-  let eq = ''
-  if $VIMRUNTIME =~ ' '
-    if &sh =~ '\<cmd'
-      let cmd = '""' . $VIMRUNTIME . '\diff"'
-      let eq = '"'
-    else
-      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-    endif
-  else
-    let cmd = $VIMRUNTIME . '\diff'
-  endif
-  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
-endfunction
-
-
-let g:Default_WebBrowser='c:\Program Files\Internet Explorer\iexplore.exe'
-let g:Second_WebBrowser='C:\Documents and Settings\MyHome\Local Settings\Application Data\Google\Chrome\Application\chrome.exe' 
-let g:Default_WebDomain='http://chaosrank.com'
-let g:Default_WebRoot='D:/www' 
-
-"set laststatus=2
-"set statusline=%<%F\ (%Y)\ [%1*%M%*%n%R%H]\ %=%8o'0x%04B\ %14(%c%V,%l/%LL%)
-"set statusline=%<%F%h%m%r%h%w%y\ %{strftime(\"%d/%m/%Y-%H:%M\")}%=\ col:%c%V\ ascii:%b\ pos:%o\ lin:%l\,%L\ %P
-set enc=utf-8
-set fenc=utf-8
