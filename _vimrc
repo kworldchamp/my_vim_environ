@@ -23,23 +23,23 @@ map <S-Tab> gT
 vmap <Tab> >gv
 vmap <S-Tab> <gv
 
-"È­¸é ÀÌµ¿ÇÏ±â
+"í™”ë©´ ì´ë™í•˜ê¸°
 map <c-h>   <c-w>h
 map <c-j>   <c-w>j
 map <c-k>   <c-w>k
 map <c-l>   <c-w>l
 
-"diffg ¾ËÆ®ÀÌµ¿
+"diffg ì•ŒíŠ¸ì´ë™
 map <S-Down> ]c
 map <S-Up> [c
 map <S-Right> :diffg<CR>
 
 "map <F10> :!start c:\program files\internet explorer\iexplore.exe http://kr.engdic.yahoo.com/result.html?p=<cword><cr>
-"<F1>ÄÄÆÄÀÏÈÄ ½ÇÇà±îÁö.
+"<F1>ì»´íŒŒì¼í›„ ì‹¤í–‰ê¹Œì§€.
 map <F1> :!clear<CR> :w!<cr>:!gcc % -o %<.exe && ./%<.exe<cr>
 "map <F2> :!clear<CR> :w!<CR>:!g++ -Wall % -o %<.exe && ./%<.exe<CR>
 
-"ÄÄÆÄÀÏ½Ã ¿¡·¯³­ÄÚµå ¹Ù·Î ¿¬°áÇØÁÖ±â´Ù~
+"ì»´íŒŒì¼ì‹œ ì—ëŸ¬ë‚œì½”ë“œ ë°”ë¡œ ì—°ê²°í•´ì£¼ê¸°ë‹¤~
 nmap <F10> :set makeprg=gcc\ %<CR> :w<CR> :make <CR> :cw 7<CR> 
 "map <F3> [{v]}zf
 map <F3> :WMToggle<CR>
@@ -51,74 +51,15 @@ vmap <F6> :norm xx<CR>
 vmap nmap nnoremap
 
 map <F12> :!clear<CR> :!./%<.exe<CR>
-"<F4> ÁÖ¼®Ã³¸®
+"<F4> ì£¼ì„ì²˜ë¦¬
 "map <F4> I/*<SPACE>by<SPACE>KWC<SPACE><C-R>=strftime("%Y.%m.%d")<CR><LF><SPACE><SPACE><SPACE><SPACE><Esc>A<SPACE>*/<Esc>
 "map <F4> zo
 
 "map <F6> ^Ww
 "map <F8> [i
 "map <F9> :! gcc % -o % <<CR>
-"ÁÖ¼®Ã³¸®
+"ì£¼ì„ì²˜ë¦¬
 "map <F4> I/*<SPACE>by<SPACE><Esc>:r!whoami<CR>v$dkwwllpA<SPACE><C-R>=strftime("%Y.%m.%d")<CR><Esc>Jxi<CR><Esc>dbi<SPACE><SPACE><Esc>A */<Esc>
-
-"========================================================================
-" Plugin : AutocomplPop
-" Command : 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" omnifunc°ü·Ã ÀÚµ¿À¸·Î ·Îµå µÇ±â À§ÇÑ ft plugin on °ú indentµî
-filetype plugin indent on
-filetype plugin on
-
-"========================================================================
-" Plugin : pyflakes.vim
-" Command : 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:pyflakes_use_quickfix=1
-
-"========================================================================
-" Plugin : pyflakes.vim
-" Command : 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <silent> <leader>fb     :FufBuffer<CR>
-nnoremap <silent> <leader>fa     :FufCoverageFile<CR>
-nnoremap <silent> <leader>ff :FufFile<CR>
-nnoremap <silent> <leader>fd :FufDir<CR>
-
-"========================================================================
-" Plugin : closetag.vim
-" Command : 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:closetag_html_style=1
-"au Filetype html,xml,xsl source ~/.vim/scripts/closetag.vim 
-
-"========================================================================
-" Plugin : taglist.vim
-" Command : BundleSearch,  ...etc..
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Taglist¸¦ À§ÇØ ´ÙÀ½ÇàÃß°¡
-nnoremap <silent> <F7> :TlistUpdate<CR> 
-nnoremap <silent> <F8> :Tlist<CR> 
-nnoremap <silent> <F9> :TlistSync<CR> 
-"ÃâÃ³ http://blog.naver.com/agfe2/80000756360 
-"F7 ~ F8 Å°¸¦ ¸ÊÇÎ½ÃÅ²´Ù.
-"F8 À» ´©¸£¸é tag ÆÄÀÏÀÌ ¿­¸°´Ù. (Åä±Û )
-"ÇöÀç Å°º¸µåÀ§Ä¡ÀÇ ÅÂ±×¸®½ºÆ®¸¦ º¸·Á¸é ÆÄÀÏÀÇ ¿øÇÏ´Â À§Ä¡¿¡¼­ F9 ¸¦ ´©¸¥´Ù.
-
-"$VIM ¿¡¼­ ÅÂ±×ÆÄÀÏÀÇ À§Ä¡¸¦ °Ë»çÇÏ±âÀ§ÇØ¼­ ´ÙÀ½ÁÙÀ» Ãß°¡
-set tags=.\tags,..\tags,
-"set tags=./tags,tags,../tags,
-
-"========================================================================
-" python ¿¡¼­ ctags È°¿ëÀ§ÇÑ ¼³Á¤
-python << EOF
-import os
-import sys
-import vim
-for p in sys.path:
-    if os.path.isdir(p):
-        vim.command(r"set path+=%s" % (p.replace(" ", r"\ ")))
-EOF
-set tags+=$HOME/.vim/tags/python.ctags
 
 "========================================================================
 " Plugin : Vundle
@@ -159,7 +100,10 @@ Bundle 'winmanager'
 Bundle 'pyflakes.vim'
 Bundle 'runzip'
 Bundle 'Toggle'
-"
+" schema
+Bundle 'vim-railscasts-theme'
+Bundle 'vim-colors-solarized'
+
 " original repos on github
 Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
@@ -175,8 +119,80 @@ Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 filetype plugin indent on     " required! 
 "bundle setting end
 
+
 "========================================================================
-" schema & color & font °ü·Ã
+" Plugin : AutocomplPop
+" Command : 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"let g:EasyMotion_leader_key = '<Leader>'
+let g:EasyMotion_leader_key = '-'
+let g:EasyMotion_keys = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+"let g:EasyMotion_mapping_w = '-w'
+"let g:EasyMotion_mapping_b = '-b'
+
+
+"========================================================================
+" Plugin : AutocomplPop
+" Command : 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" omnifuncê´€ë ¨ ìë™ìœ¼ë¡œ ë¡œë“œ ë˜ê¸° ìœ„í•œ ft plugin on ê³¼ indentë“±
+filetype plugin indent on
+filetype plugin on
+
+"========================================================================
+" Plugin : pyflakes.vim
+" Command : 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:pyflakes_use_quickfix=1
+
+"========================================================================
+" Plugin : FuzzyFinder
+" Command : 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <silent> <leader>fb     :FufBuffer<CR>
+nnoremap <silent> <leader>fa     :FufCoverageFile<CR>
+nnoremap <silent> <leader>ff :FufFile<CR>
+nnoremap <silent> <leader>fd :FufDir<CR>
+
+"========================================================================
+" Plugin : closetag.vim
+" Command : 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:closetag_html_style=1
+"au Filetype html,xml,xsl source ~/.vim/scripts/closetag.vim 
+
+"========================================================================
+" Plugin : taglist.vim
+" Command : BundleSearch,  ...etc..
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Taglistë¥¼ ìœ„í•´ ë‹¤ìŒí–‰ì¶”ê°€
+nnoremap <silent> <F7> :TlistUpdate<CR> 
+nnoremap <silent> <F8> :Tlist<CR> 
+nnoremap <silent> <F9> :TlistSync<CR> 
+"ì¶œì²˜ http://blog.naver.com/agfe2/80000756360 
+"F7 ~ F8 í‚¤ë¥¼ ë§µí•‘ì‹œí‚¨ë‹¤.
+"F8 ì„ ëˆ„ë¥´ë©´ tag íŒŒì¼ì´ ì—´ë¦°ë‹¤. (í† ê¸€ )
+"í˜„ì¬ í‚¤ë³´ë“œìœ„ì¹˜ì˜ íƒœê·¸ë¦¬ìŠ¤íŠ¸ë¥¼ ë³´ë ¤ë©´ íŒŒì¼ì˜ ì›í•˜ëŠ” ìœ„ì¹˜ì—ì„œ F9 ë¥¼ ëˆ„ë¥¸ë‹¤.
+
+"$VIM ì—ì„œ íƒœê·¸íŒŒì¼ì˜ ìœ„ì¹˜ë¥¼ ê²€ì‚¬í•˜ê¸°ìœ„í•´ì„œ ë‹¤ìŒì¤„ì„ ì¶”ê°€
+set tags=.\tags,..\tags,
+"set tags=./tags,tags,../tags,
+
+"========================================================================
+" python ì—ì„œ ctags í™œìš©ìœ„í•œ ì„¤ì •
+python << EOF
+import os
+import sys
+import vim
+for p in sys.path:
+    if os.path.isdir(p):
+        vim.command(r"set path+=%s" % (p.replace(" ", r"\ ")))
+EOF
+set tags+=$HOME/.vim/tags/python.ctags
+
+
+"========================================================================
+" schema & color & font ê´€ë ¨
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "set laststatus=2
 "set statusline=%<%F\ (%Y)\ [%1*%M%*%n%R%H]\ %=%8o'0x%04B\ %14(%c%V,%l/%LL%)
@@ -197,32 +213,32 @@ set fileencodings=utf-8,ucs-bom,korea,euc-kr,default
 "set fileformat=dos
 "set fileformats=unix,dos
 "set term=ansi
-set nocompatible    " Vim µğÆúÆ® ±â´ÉµéÀ» »ç¿ëÇÔ
-set tabstop=4       " <Tab> °£°İ
-set backspace=2     " »ğÀÔ ¸ğµå¿¡¼­ ¹é½ºÆäÀÌ½º¸¦ °è¼Ó Çã¿ë
-set autoindent      " ÀÚµ¿ µé¿©¾²±â
-set cindent         " C ¾ğ¾î ÀÚµ¿ µé¿©¾²±â
-set smartindent     " ¿ª½Ã ÀÚµ¿ µé¿©¾²±â
-"set textwidth=80    " 76¹øÂ° Ä­À» ³Ñ¾î°¡¸é ÀÚµ¿À¸·Î ÁÙ ¹Ù²Ş
+set nocompatible    " Vim ë””í´íŠ¸ ê¸°ëŠ¥ë“¤ì„ ì‚¬ìš©í•¨
+set tabstop=4       " <Tab> ê°„ê²©
+set backspace=2     " ì‚½ì… ëª¨ë“œì—ì„œ ë°±ìŠ¤í˜ì´ìŠ¤ë¥¼ ê³„ì† í—ˆìš©
+set autoindent      " ìë™ ë“¤ì—¬ì“°ê¸°
+set cindent         " C ì–¸ì–´ ìë™ ë“¤ì—¬ì“°ê¸°
+set smartindent     " ì—­ì‹œ ìë™ ë“¤ì—¬ì“°ê¸°
+"set textwidth=80    " 76ë²ˆì§¸ ì¹¸ì„ ë„˜ì–´ê°€ë©´ ìë™ìœ¼ë¡œ ì¤„ ë°”ê¿ˆ
 set wrap
-set nowrapscan      " Ã£±â¿¡¼­ ÆÄÀÏÀÇ ¸Ç ³¡¿¡ ÀÌ¸£¸é °è¼ÓÇÏ¿© Ã£Áö ¾ÊÀ½
-set nobackup       " ¹é¾÷ÆÄÀÏÀ» ¸¸µéÁö ¾ÊÀ½
-"set novisualbell    " ºñÁÖ¾óº§ ±â´ÉÀ» »ç¿ëÇÏÁö ¾ÊÀ½
-set nojoinspaces    " J ¸í·É¾î·Î ÁÙÀ» ºÙÀÏ ¶§ ¸¶Ä§Ç¥ µÚ¿¡ ÇÑÄ­¸¸ ¶ê
-set ruler           " »óÅÂÇ¥½ÃÁÙ¿¡ Ä¿¼­ À§Ä¡¸¦ º¸¿©ÁÜ
-set shiftwidth=4    " ÀÚµ¿ µé¿©¾²±â °£°İ
-"set keywordprg=edic    " K¸¦ ´­·¶À» ¶§ ½ÇÇàÇÒ ¸í·É¾î
-set showcmd         " (ºÎºĞÀûÀÎ) ¸í·É¾î¸¦ »óÅÂ¶óÀÎ¿¡ º¸¿©ÁÜ
-set showmatch       " ¸ÅÄ¡µÇ´Â °ıÈ£ÀÇ ¹İ´ëÂÊÀ» º¸¿©ÁÜ
-"set ignorecase      " Ã£±â¿¡¼­ ´ë/¼Ò¹®ÀÚ¸¦ ±¸º°ÇÏÁö ¾ÊÀ½
-set incsearch       " Á¡ÁøÀûÀ¸·Î Ã£±â
-set autowrite       " :next ³ª :make °°Àº ¸í·É¸¦ ÀÔ·ÂÇÏ¸é ÀÚµ¿À¸·Î ÀúÀå
-set title                       " Å¸ÀÌÆ²¹Ù¿¡ ÇöÀç ÆíÁıÁßÀÎ ÆÄÀÏÀ» Ç¥½Ã
+set nowrapscan      " ì°¾ê¸°ì—ì„œ íŒŒì¼ì˜ ë§¨ ëì— ì´ë¥´ë©´ ê³„ì†í•˜ì—¬ ì°¾ì§€ ì•ŠìŒ
+set nobackup       " ë°±ì—…íŒŒì¼ì„ ë§Œë“¤ì§€ ì•ŠìŒ
+"set novisualbell    " ë¹„ì£¼ì–¼ë²¨ ê¸°ëŠ¥ì„ ì‚¬ìš©í•˜ì§€ ì•ŠìŒ
+set nojoinspaces    " J ëª…ë ¹ì–´ë¡œ ì¤„ì„ ë¶™ì¼ ë•Œ ë§ˆì¹¨í‘œ ë’¤ì— í•œì¹¸ë§Œ ë”
+set ruler           " ìƒíƒœí‘œì‹œì¤„ì— ì»¤ì„œ ìœ„ì¹˜ë¥¼ ë³´ì—¬ì¤Œ
+set shiftwidth=4    " ìë™ ë“¤ì—¬ì“°ê¸° ê°„ê²©
+"set keywordprg=edic    " Kë¥¼ ëˆŒë €ì„ ë•Œ ì‹¤í–‰í•  ëª…ë ¹ì–´
+set showcmd         " (ë¶€ë¶„ì ì¸) ëª…ë ¹ì–´ë¥¼ ìƒíƒœë¼ì¸ì— ë³´ì—¬ì¤Œ
+set showmatch       " ë§¤ì¹˜ë˜ëŠ” ê´„í˜¸ì˜ ë°˜ëŒ€ìª½ì„ ë³´ì—¬ì¤Œ
+"set ignorecase      " ì°¾ê¸°ì—ì„œ ëŒ€/ì†Œë¬¸ìë¥¼ êµ¬ë³„í•˜ì§€ ì•ŠìŒ
+set incsearch       " ì ì§„ì ìœ¼ë¡œ ì°¾ê¸°
+set autowrite       " :next ë‚˜ :make ê°™ì€ ëª…ë ¹ë¥¼ ì…ë ¥í•˜ë©´ ìë™ìœ¼ë¡œ ì €ì¥
+set title                       " íƒ€ì´í‹€ë°”ì— í˜„ì¬ í¸ì§‘ì¤‘ì¸ íŒŒì¼ì„ í‘œì‹œ
 "set number
 
 
 """ ========================================================
-""" ÆÄÀÏ ÀÎÄÚµùÀ» ÇÑ±¹¾î·Î ¼³Á¤
+""" íŒŒì¼ ì¸ì½”ë”©ì„ í•œêµ­ì–´ë¡œ ì„¤ì •
 """ ========================================================
 "if $LANG[0] == 'k' && $LANG[1] == 'o'
 	"set fileencoding=korea
@@ -230,7 +246,7 @@ set title                       " Å¸ÀÌÆ²¹Ù¿¡ ÇöÀç ÆíÁıÁßÀÎ ÆÄÀÏÀ» Ç¥½Ã
 
 
 """ ========================================================
-""" ÅÍ¹Ì³Î¿¡ µû¸¥ ¼³Á¤ : XtermÀÌ¸é 16ÄÃ·¯ »ç¿ë
+""" í„°ë¯¸ë„ì— ë”°ë¥¸ ì„¤ì • : Xtermì´ë©´ 16ì»¬ëŸ¬ ì‚¬ìš©
 """ ========================================================
 if &term =~ "xterm-debian" || &term =~ "xterm-xfree86"
 	set t_Co=16
@@ -242,7 +258,7 @@ endif
 
 
 """ ========================================================
-""" ¹®¹ı °­Á¶±â´É »ç¿ë
+""" ë¬¸ë²• ê°•ì¡°ê¸°ëŠ¥ ì‚¬ìš©
 """ ========================================================
 if has("syntax")
 	syntax on
@@ -250,11 +266,11 @@ endif
 
 
 """ ========================================================
-""" GUI ¸ğµå·Î ½ÇÇàÇÒ °æ¿ì
+""" GUI ëª¨ë“œë¡œ ì‹¤í–‰í•  ê²½ìš°
 """ ========================================================
 if has("gui_running")
-	set visualbell        " ºñÁÖ¾óº§ ±â´É »ç¿ë
-	set hlsearch          " Ã£´Â ´Ü¾î¸¦ ÇÏÀÌ¶óÀÌÆÃ
+	set visualbell        " ë¹„ì£¼ì–¼ë²¨ ê¸°ëŠ¥ ì‚¬ìš©
+	set hlsearch          " ì°¾ëŠ” ë‹¨ì–´ë¥¼ í•˜ì´ë¼ì´íŒ…
 	set guifontset=-*-fixed-medium-r-normal--14-*-75-75-*-70-iso8859-1,-*-gulim-medium-r-normal--14-140-75-75-*-140-ksc5601.1987-0
 endif
 
@@ -283,7 +299,7 @@ hi Character ctermfg=DarkYellow
 hi Special ctermfg=DarkYellow
 hi Constant ctermfg=DarkRed
 
-if has("autocmd") "ÀÌÀü ÀÛ¾÷ÁÙ Ç¥½Ã http://kldp.org/node/28046 ¿¡¼­..
+if has("autocmd") "ì´ì „ ì‘ì—…ì¤„ í‘œì‹œ http://kldp.org/node/28046 ì—ì„œ..
 	" When editing a file, always jump to the last cursor position
 	autocmd BufReadPost *
 				\ if line("'\"") > 0 && line ("'\"") <= line("$") |
@@ -292,10 +308,10 @@ if has("autocmd") "ÀÌÀü ÀÛ¾÷ÁÙ Ç¥½Ã http://kldp.org/node/28046 ¿¡¼­..
 endif
 
 "========================================================================
-"minibufexpl.vim ·Îµå ¾ÈµÇ°Ô ÇÃ·¯±×ÀÎ ÀÚµ¿·Îµå ÇÏÁö ¾ÊÀº´ÙÀ½(set noloadplugins) minibufexpl¸¸ Á¦¿ÜÇÑ ÇÃ·¯±×ÀÎ·Îµå
+"minibufexpl.vim ë¡œë“œ ì•ˆë˜ê²Œ í”ŒëŸ¬ê·¸ì¸ ìë™ë¡œë“œ í•˜ì§€ ì•Šì€ë‹¤ìŒ(set noloadplugins) minibufexplë§Œ ì œì™¸í•œ í”ŒëŸ¬ê·¸ì¸ë¡œë“œ
 "set noloadplugins
 "runtime! plugin/[^\<minibufexpl\>]*.vim
 
-" ÀÌ Ã³·³µµ °¡´É
+" ì´ ì²˜ëŸ¼ë„ ê°€ëŠ¥
 "au TabEnter * exec ":CMiniBufExplorer"
 

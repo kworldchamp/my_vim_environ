@@ -1,6 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
-let g:netrw_dirhist_1='ftp://world@linuxstudy.pe.kr/'
-let g:netrw_dirhist_2='ftp://world@linuxstudy.pe.kr/tmp/'
-let g:netrw_dirhist_3='ftp://world@linuxstudy.pe.kr/'
-let g:netrw_dirhist_4='ftp://world@linuxstudy.pe.kr/tmp/'
