@@ -45,7 +45,7 @@ map <F3> :WMToggle<CR>
 
 "map <F4> :21vs .<CR>:set nonumber<CR>
 map <F4> :NERDTreeToggle<CR>
-"vmap <F5> :norm i//<CR>
+vmap <F5> :norm i//<CR>
 vmap <F6> :norm xx<CR>
 vmap nmap nnoremap
 
@@ -106,7 +106,6 @@ Bundle 'runzip'
 Bundle 'Toggle'
 Bundle 'TaskList.vim'
 Bundle 'Gundo'
-Bundle 'TFS'
 Bundle 'pep8'
 " schema
 Bundle 'vim-railscasts-theme'
@@ -136,6 +135,12 @@ filetype plugin indent on     " required!
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle command are not allowed..
 "bundle setting end
+
+"========================================================================
+" Plugin : pep8
+" Command : 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:pep8_map='<leader>8'
 
 "========================================================================
 " Plugin : Gundo
