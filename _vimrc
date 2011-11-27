@@ -105,6 +105,8 @@ Bundle 'winmanager'
 Bundle 'pyflakes.vim'
 Bundle 'runzip'
 Bundle 'Toggle'
+Bundle 'TaskList.vim'
+Bundle 'Gundo'
 " schema
 Bundle 'vim-railscasts-theme'
 Bundle 'vim-colors-solarized'
@@ -133,6 +135,13 @@ filetype plugin indent on     " required!
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle command are not allowed..
 "bundle setting end
+
+"========================================================================
+" Plugin : Gundo
+" Command : GundoToggle
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" buftype으로 세이브 revision 목록 확인 가능
+map <leader>g :GundoToggle<CR>
 
 "========================================================================
 " Plugin : vim-easymotion
