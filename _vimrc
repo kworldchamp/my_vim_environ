@@ -45,7 +45,7 @@ map <F3> :WMToggle<CR>
 
 "map <F4> :21vs .<CR>:set nonumber<CR>
 map <F4> :NERDTreeToggle<CR>
-vmap <F5> :norm i//<CR>
+"vmap <F5> :norm i//<CR>
 vmap <F6> :norm xx<CR>
 vmap nmap nnoremap
 
@@ -106,6 +106,8 @@ Bundle 'runzip'
 Bundle 'Toggle'
 Bundle 'TaskList.vim'
 Bundle 'Gundo'
+Bundle 'TFS'
+Bundle 'pep8'
 " schema
 Bundle 'vim-railscasts-theme'
 Bundle 'vim-colors-solarized'
