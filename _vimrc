@@ -107,6 +107,7 @@ Bundle 'Toggle'
 Bundle 'TaskList.vim'
 Bundle 'Gundo'
 Bundle 'pep8'
+Bundle 'python_match.vim'
 " schema
 Bundle 'vim-railscasts-theme'
 Bundle 'vim-colors-solarized'
