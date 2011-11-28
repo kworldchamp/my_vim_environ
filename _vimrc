@@ -94,7 +94,6 @@ Bundle 'AutoComplPop'
 Bundle 'AutoClose'
 Bundle 'matchit.zip'
 Bundle 'matchparenpp'
-Bundle 'snipMate'
 Bundle 'taglist-plus'
 Bundle 'taglist.vim'
 Bundle 'tohtml_wincp'
@@ -108,12 +107,19 @@ Bundle 'TaskList.vim'
 Bundle 'Gundo'
 Bundle 'pep8'
 Bundle 'python_match.vim'
+
+"Bundle 'snipMate' "이걸 아래 fork된 프로젝트 사항으로 대체, 기존업데이트 문제로
+Bundle "git://github.com/honza/snipmate-snippets.git"
+Bundle "git://github.com/MarcWeber/vim-addon-mw-utils.git"
+Bundle "git://github.com/tomtom/tlib_vim.git"
+Bundle "git://github.com/garbas/vim-snipmate.git"
+
 " schema
 Bundle 'vim-railscasts-theme'
 Bundle 'vim-colors-solarized'
 
 " original repos on github
-Bundle 'robhudson/snipmate_for_django'
+"Bundle 'robhudson/snipmate_for_django'
 Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
@@ -166,7 +172,7 @@ let g:EasyMotion_keys = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "snipmate_for_django
 autocmd FileType python set ft=python.django " For SnipMate
-autocmd FileType html   set ft=htmldjango.html " For SnipMate"
+autocmd FileType html   set ft=htmldjango.html " For SnipMate
 
 "========================================================================
 " Plugin : AutocomplPop
