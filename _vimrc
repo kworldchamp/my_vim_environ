@@ -87,7 +87,6 @@ Bundle 'surround.vim'
 Bundle 'repeat.vim'
 Bundle 'L9'
 Bundle 'HTML-AutoCloseTag'
-Bundle 'html5.vim'
 Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
 Bundle 'a.vim'
@@ -108,6 +107,7 @@ Bundle 'TaskList.vim'
 Bundle 'Gundo'
 Bundle 'pep8'
 Bundle 'python_match.vim'
+Bundle 'c.vim'
 
 "Bundle 'snipMate' "이걸 아래 fork된 프로젝트 사항으로 대체, 기존업데이트 문제로
 Bundle "git://github.com/honza/snipmate-snippets.git"
@@ -124,6 +124,8 @@ Bundle 'vim-colors-solarized'
 Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+Bundle 'othree/html5.vim'
+
 " vim-scripts repos
 "Bundle 'L9'
 "Bundle 'FuzzyFinder'
@@ -173,7 +175,9 @@ let g:EasyMotion_keys = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "snipmate_for_django
 autocmd FileType python set ft=python.django " For SnipMate
-autocmd FileType html   set ft=htmldjango.html " For SnipMate
+"autocmd FileType html   set ft=htmldjango
+" For SnipMate, acp(AutocomplPop)/plugin 수정, html5 plugin syntax 수정.html
+autocmd FileType html   set ft=htmldjango 
 
 "========================================================================
 " Plugin : AutocomplPop
