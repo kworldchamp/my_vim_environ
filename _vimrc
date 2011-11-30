@@ -367,10 +367,10 @@ if !has("gui_running")
     "map a gt //알트(Alt) 입력..echo "a" | awk ' { printf "%c", 27} ' > A27.txt 이걸 이용
     "map <Char-27>a gt 알트 키코드 char-27
     "========================
-    "map! <Char-27>h   <LEFT>
+    map! <Char-27>h   <LEFT>
     "map! <Char-27>j   <DOWN>
     "map! <Char-27>k   <UP>
-    "map! <Char-27>l   <RIGHT>
+    map! <Char-27>l   <RIGHT>
     "========================
     map <F3> :!python %<CR>
     map! <F3> <C-o>:!python %<CR>
