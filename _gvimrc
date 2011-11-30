@@ -1,4 +1,13 @@
 "========================================================================
+" Plugin : pyflakes-vim
+" Command : 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if has("gui_running") 
+    highlight SpellBad term=underline gui=undercurl guisp=Orange 
+endif 
+
+
+"========================================================================
 " schema & color & font 관련
 set guifontwide=gulimche
 

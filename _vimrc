@@ -100,7 +100,7 @@ Bundle 'tohtml_wincp'
 Bundle 'VimExplorer'
 Bundle 'Vimball'
 Bundle 'winmanager'
-Bundle 'pyflakes.vim'
+"Bundle 'pyflakes.vim'
 Bundle 'runzip'
 Bundle 'Toggle'
 Bundle 'TaskList.vim'
@@ -125,6 +125,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'othree/html5.vim'
+Bundle 'kevinw/pyflakes-vim'
 
 " vim-scripts repos
 "Bundle 'L9'
@@ -175,8 +176,7 @@ let g:EasyMotion_keys = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "snipmate_for_django
 autocmd FileType python set ft=python.django " For SnipMate
-"autocmd FileType html   set ft=htmldjango
-" For SnipMate, acp(AutocomplPop)/plugin 수정, html5 plugin syntax 수정.html
+" For SnipMate, acp(AutocomplPop)/plugin 수정#htmldjango 추가, html5 plugin syntax 수정#syntax/htmldjango.vim 내용을 붙여넣기
 autocmd FileType html   set ft=htmldjango 
 
 "========================================================================
@@ -377,3 +377,24 @@ if !has("gui_running")
     map! <F3> <C-o>:!python %<CR>
 
 endif
+
+function! MyExecute(cmd)
+let tmpnam=tempname()
+    let tmpnam=tempname()
+    let cmdstr=expand(a:cmd)
+    exec "!".a:cmd." 2>&1| tee ".tmpnam
+    if bufexists("ResultWindow") && bufwinnr("ResultWindow") > 0
+        exe bufwinnr("ResultWindow")."wincmd w"
+        set ma noro
+    else
+        bo 1split
+        enew
+        setlocal bt=nofile
+        file ResultWindow
+    endif
+    exec "0"
+    exec "normal dG"
+    exec "r ".tmpnam
+    exec "silent !rm ".tmpnam
+    redraw!
+endfunction
