@@ -1,6 +1,5 @@
 "========================================================================
 " vimrc 2011.11.23~
-" li test2
 "========================================================================
 " testing...
 "au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
@@ -87,7 +86,6 @@ Bundle 'surround.vim'
 Bundle 'repeat.vim'
 Bundle 'L9'
 Bundle 'HTML-AutoCloseTag'
-Bundle 'html5.vim'
 Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
 Bundle 'a.vim'
@@ -95,25 +93,39 @@ Bundle 'AutoComplPop'
 Bundle 'AutoClose'
 Bundle 'matchit.zip'
 Bundle 'matchparenpp'
-Bundle 'snipMate'
 Bundle 'taglist-plus'
 Bundle 'taglist.vim'
 Bundle 'tohtml_wincp'
 Bundle 'VimExplorer'
 Bundle 'Vimball'
 Bundle 'winmanager'
-Bundle 'pyflakes.vim'
+"Bundle 'pyflakes.vim'
 Bundle 'runzip'
 Bundle 'Toggle'
+Bundle 'TaskList.vim'
+Bundle 'Gundo'
+Bundle 'pep8'
+Bundle 'python_match.vim'
+Bundle 'c.vim'
+
+"Bundle 'snipMate' "이걸 아래 fork된 프로젝트 사항으로 대체, 기존업데이트 문제로
+Bundle "git://github.com/honza/snipmate-snippets.git"
+Bundle "git://github.com/MarcWeber/vim-addon-mw-utils.git"
+Bundle "git://github.com/tomtom/tlib_vim.git"
+Bundle "git://github.com/garbas/vim-snipmate.git"
+
 " schema
 Bundle 'vim-railscasts-theme'
 Bundle 'vim-colors-solarized'
 
 " original repos on github
-Bundle 'robhudson/snipmate_for_django'
+"Bundle 'robhudson/snipmate_for_django'
 Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+Bundle 'othree/html5.vim'
+Bundle 'kevinw/pyflakes-vim'
+
 " vim-scripts repos
 "Bundle 'L9'
 "Bundle 'FuzzyFinder'
@@ -135,6 +147,19 @@ filetype plugin indent on     " required!
 "bundle setting end
 
 "========================================================================
+" Plugin : pep8
+" Command : 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:pep8_map='<leader>8'
+
+"========================================================================
+" Plugin : Gundo
+" Command : GundoToggle
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" buftype으로 세이브 revision 목록 확인 가능
+map <leader>g :GundoToggle<CR>
+
+"========================================================================
 " Plugin : vim-easymotion
 " Command : 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -150,7 +175,8 @@ let g:EasyMotion_keys = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "snipmate_for_django
 autocmd FileType python set ft=python.django " For SnipMate
-autocmd FileType html   set ft=htmldjango.html " For SnipMate"
+" For SnipMate, acp(AutocomplPop)/plugin 수정#htmldjango 추가, html5 plugin syntax 수정#syntax/htmldjango.vim 내용을 붙여넣기
+autocmd FileType html   set ft=htmldjango 
 
 "========================================================================
 " Plugin : AutocomplPop
@@ -350,3 +376,24 @@ if !has("gui_running")
     map! <F3> <C-o>:!python %<CR>
 
 endif
+
+function! MyExecute(cmd)
+let tmpnam=tempname()
+    let tmpnam=tempname()
+    let cmdstr=expand(a:cmd)
+    exec "!".a:cmd." 2>&1| tee ".tmpnam
+    if bufexists("ResultWindow") && bufwinnr("ResultWindow") > 0
+        exe bufwinnr("ResultWindow")."wincmd w"
+        set ma noro
+    else
+        bo 1split
+        enew
+        setlocal bt=nofile
+        file ResultWindow
+    endif
+    exec "0"
+    exec "normal dG"
+    exec "r ".tmpnam
+    exec "silent !rm ".tmpnam
+    redraw!
+endfunction
