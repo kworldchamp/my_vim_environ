@@ -75,6 +75,10 @@ source $VIMRUNTIME/mswin.vim
 behave mswin
 
 "========================================================================
+"behave mswin 이후 설정되는 CTRL + A 맵핑중 노말 모드일 때 윈도우용 c-a 안되게
+exec ":unmap <c-a>"
+
+"========================================================================
 set diffexpr=MyDiff()
 function MyDiff()
   let opt = '-a --binary '
