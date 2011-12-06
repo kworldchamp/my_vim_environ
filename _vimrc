@@ -109,7 +109,10 @@ Bundle 'pep8'
 Bundle 'python_match.vim'
 Bundle 'c.vim'
 
-"Bundle 'snipMate' "이걸 아래 fork된 프로젝트 사항으로 대체, 기존업데이트 문제로
+" for kk custom
+Bundle "kk"
+
+"Bundle 'snipMate' " 기존 snipMate의 업데이트 문제로, 이것을 아래 fork된 프로젝트 사항으로 대체
 Bundle "git://github.com/honza/snipmate-snippets.git"
 Bundle "git://github.com/MarcWeber/vim-addon-mw-utils.git"
 Bundle "git://github.com/tomtom/tlib_vim.git"
@@ -126,6 +129,8 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'othree/html5.vim'
 Bundle 'kevinw/pyflakes-vim'
+Bundle 'xolox/vim-easytags'
+Bundle 'ujihisa/quickrun'
 
 " vim-scripts repos
 "Bundle 'L9'
@@ -211,7 +216,7 @@ let g:closetag_html_style=1
 
 "========================================================================
 " Plugin : taglist.vim
-" Command : BundleSearch,  ...etc..
+" Command : 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Taglist를 위해 다음행추가
 nnoremap <silent> <F7> :TlistUpdate<CR> 
@@ -368,18 +373,21 @@ if !has("gui_running")
     "map a gt //알트(Alt) 입력..echo "a" | awk ' { printf "%c", 27} ' > A27.txt 이걸 이용
     "map <Char-27>a gt 알트 키코드 char-27
     "========================
-    map! <Char-27>h   <LEFT>
+    "map! <Char-27>h   <LEFT>
     "map! <Char-27>j   <DOWN>
     "map! <Char-27>k   <UP>
-    map! <Char-27>l   <RIGHT>
+    "map! <Char-27>l   <RIGHT>
     "========================
-    map <F3> :!python %<CR>
-    map! <F3> <C-o>:!python %<CR>
+    inoremap <silent> H <LEFT>
+    inoremap <silent> L <RIGHT>
+    inoremap <silent> J <DOWN>
+    inoremap <silent> K <UP>
+    map <F2> :!python %<CR>
+    map! <F2> <C-o>:!python %<CR>
 
 endif
 
 function! MyExecute(cmd)
-let tmpnam=tempname()
     let tmpnam=tempname()
     let cmdstr=expand(a:cmd)
     exec "!".a:cmd." 2>&1| tee ".tmpnam
