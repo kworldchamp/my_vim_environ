@@ -38,6 +38,11 @@ map <S-Right> :diffg<CR>
 "<F1>컴파일후 실행까지.
 map <F1> :!clear<CR> :w!<cr>:!gcc % -o %<.exe && ./%<.exe<cr>
 "map <F2> :!clear<CR> :w!<CR>:!g++ -Wall % -o %<.exe && ./%<.exe<CR>
+"map <F2> :!python %<CR>
+map <F2> :QuickRun python<CR>
+vmap <F2> :QuickRun python<CR>
+"map! <F2> <C-o>:!python %<CR>
+map! <F2> <C-o>:QuickRun  python<CR>
 
 "컴파일시 에러난코드 바로 연결해주기다~
 nmap <F10> :set makeprg=gcc\ %<CR> :w<CR> :make <CR> :cw 7<CR> 
@@ -110,6 +115,7 @@ Bundle 'python_match.vim'
 Bundle 'c.vim'
 Bundle 'EasyGrep'
 Bundle 'grep.vim'
+Bundle 'RunView'
 
 " for kk custom
 Bundle "kk"
@@ -131,10 +137,11 @@ Bundle 'Lokaltog/vim-easymotion'
 "Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'othree/html5.vim'
 Bundle 'kevinw/pyflakes-vim'
-Bundle 'ujihisa/quickrun'
+"Bundle 'ujihisa/quickrun' "original version
 Bundle 'xolox/vim-shell'
 Bundle 'xolox/vim-session'
 Bundle 'xolox/vim-easytags'
+Bundle 'thinca/vim-quickrun'
 
 " vim-scripts repos
 "Bundle 'L9'
@@ -155,6 +162,12 @@ filetype plugin indent on     " required!
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle command are not allowed..
 "bundle setting end
+
+"========================================================================
+" Plugin : RunView
+" Command : 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:runview_filtcmd="python"
 
 "========================================================================
 " Plugin : pep8
@@ -386,9 +399,6 @@ if !has("gui_running")
     inoremap <silent> L <RIGHT>
     inoremap <silent> J <DOWN>
     inoremap <silent> K <UP>
-    map <F2> :!python %<CR>
-    map! <F2> <C-o>:!python %<CR>
-
 endif
 
 function! MyExecute(cmd)
