@@ -131,7 +131,6 @@ Bundle 'Lokaltog/vim-easymotion'
 "Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'othree/html5.vim'
 Bundle 'kevinw/pyflakes-vim'
-Bundle 'xolox/vim-easytags'
 Bundle 'ujihisa/quickrun'
 Bundle 'xolox/vim-shell'
 Bundle 'xolox/vim-session'
