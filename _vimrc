@@ -1,6 +1,6 @@
 "========================================================================
 " vimrc 2011.11.23~
-" li test2
+
 "========================================================================
 " testing...
 "au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
@@ -38,6 +38,11 @@ map <S-Right> :diffg<CR>
 "<F1>컴파일후 실행까지.
 map <F1> :!clear<CR> :w!<cr>:!gcc % -o %<.exe && ./%<.exe<cr>
 "map <F2> :!clear<CR> :w!<CR>:!g++ -Wall % -o %<.exe && ./%<.exe<CR>
+"map <F2> :!python %<CR>
+map <F2> :QuickRun python<CR>
+vmap <F2> :QuickRun python<CR>
+"map! <F2> <C-o>:!python %<CR>
+map! <F2> <C-o>:QuickRun  python<CR>
 
 "컴파일시 에러난코드 바로 연결해주기다~
 nmap <F10> :set makeprg=gcc\ %<CR> :w<CR> :make <CR> :cw 7<CR> 
@@ -87,7 +92,6 @@ Bundle 'surround.vim'
 Bundle 'repeat.vim'
 Bundle 'L9'
 Bundle 'HTML-AutoCloseTag'
-Bundle 'html5.vim'
 Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
 Bundle 'a.vim'
@@ -95,25 +99,50 @@ Bundle 'AutoComplPop'
 Bundle 'AutoClose'
 Bundle 'matchit.zip'
 Bundle 'matchparenpp'
-Bundle 'snipMate'
 Bundle 'taglist-plus'
 Bundle 'taglist.vim'
 Bundle 'tohtml_wincp'
 Bundle 'VimExplorer'
 Bundle 'Vimball'
 Bundle 'winmanager'
-Bundle 'pyflakes.vim'
+"Bundle 'pyflakes.vim'
 Bundle 'runzip'
 Bundle 'Toggle'
+Bundle 'TaskList.vim'
+Bundle 'Gundo'
+Bundle 'pep8'
+Bundle 'python_match.vim'
+Bundle 'c.vim'
+Bundle 'EasyGrep'
+Bundle 'grep.vim'
+Bundle 'RunView'
+
+" for kk custom
+Bundle "kk"
+
+"Bundle 'snipMate' " 기존 snipMate의 업데이트 문제로, 이것을 아래 fork된 프로젝트 사항으로 대체
+Bundle "git://github.com/honza/snipmate-snippets.git"
+Bundle "git://github.com/MarcWeber/vim-addon-mw-utils.git"
+Bundle "git://github.com/tomtom/tlib_vim.git"
+Bundle "git://github.com/garbas/vim-snipmate.git"
+
 " schema
-Bundle 'vim-railscasts-theme'
-Bundle 'vim-colors-solarized'
+"Bundle 'jpo/vim-railscasts-theme'
+"Bundle 'altercation/vim-colors-solarized'
 
 " original repos on github
-Bundle 'robhudson/snipmate_for_django'
+"Bundle 'robhudson/snipmate_for_django'
 Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+"Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+Bundle 'othree/html5.vim'
+Bundle 'kevinw/pyflakes-vim'
+"Bundle 'ujihisa/quickrun' "original version
+Bundle 'xolox/vim-shell'
+Bundle 'xolox/vim-session'
+Bundle 'xolox/vim-easytags'
+Bundle 'thinca/vim-quickrun'
+
 " vim-scripts repos
 "Bundle 'L9'
 "Bundle 'FuzzyFinder'
@@ -135,6 +164,25 @@ filetype plugin indent on     " required!
 "bundle setting end
 
 "========================================================================
+" Plugin : RunView
+" Command : 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:runview_filtcmd="python"
+
+"========================================================================
+" Plugin : pep8
+" Command : 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:pep8_map='<leader>8'
+
+"========================================================================
+" Plugin : Gundo
+" Command : GundoToggle
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" buftype으로 세이브 revision 목록 확인 가능
+map <leader>g :GundoToggle<CR>
+
+"========================================================================
 " Plugin : vim-easymotion
 " Command : 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -150,7 +198,8 @@ let g:EasyMotion_keys = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "snipmate_for_django
 autocmd FileType python set ft=python.django " For SnipMate
-autocmd FileType html   set ft=htmldjango.html " For SnipMate"
+" For SnipMate, acp(AutocomplPop)/plugin 수정#htmldjango 추가, html5 plugin syntax 수정#syntax/htmldjango.vim 내용을 붙여넣기
+autocmd FileType html   set ft=htmldjango 
 
 "========================================================================
 " Plugin : AutocomplPop
@@ -184,7 +233,7 @@ let g:closetag_html_style=1
 
 "========================================================================
 " Plugin : taglist.vim
-" Command : BundleSearch,  ...etc..
+" Command :
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Taglist를 위해 다음행추가
 nnoremap <silent> <F7> :TlistUpdate<CR> 
@@ -346,7 +395,28 @@ if !has("gui_running")
     "map! <Char-27>k   <UP>
     "map! <Char-27>l   <RIGHT>
     "========================
-    map <F3> :!python %<CR>
-    map! <F3> <C-o>:!python %<CR>
-
+    inoremap <silent> H <LEFT>
+    inoremap <silent> L <RIGHT>
+    inoremap <silent> J <DOWN>
+    inoremap <silent> K <UP>
 endif
+
+function! MyExecute(cmd)
+    let tmpnam=tempname()
+    let cmdstr=expand(a:cmd)
+    exec "!".a:cmd." 2>&1| tee ".tmpnam
+    if bufexists("ResultWindow") && bufwinnr("ResultWindow") > 0
+        exe bufwinnr("ResultWindow")."wincmd w"
+        set ma noro
+    else
+        bo 1split
+        enew
+        setlocal bt=nofile
+        file ResultWindow
+    endif
+    exec "0"
+    exec "normal dG"
+    exec "r ".tmpnam
+    exec "silent !rm ".tmpnam
+    redraw!
+endfunction
