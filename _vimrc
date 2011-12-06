@@ -131,14 +131,11 @@ Bundle 'Lokaltog/vim-easymotion'
 "Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'othree/html5.vim'
 Bundle 'kevinw/pyflakes-vim'
-<<<<<<< HEAD
 Bundle 'xolox/vim-easytags'
 Bundle 'ujihisa/quickrun'
-=======
 Bundle 'xolox/vim-shell'
 Bundle 'xolox/vim-session'
 Bundle 'xolox/vim-easytags'
->>>>>>> 54108ce... ud
 
 " vim-scripts repos
 "Bundle 'L9'
@@ -224,11 +221,7 @@ let g:closetag_html_style=1
 
 "========================================================================
 " Plugin : taglist.vim
-<<<<<<< HEAD
-" Command : 
-=======
 " Command :
->>>>>>> 54108ce... ud
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Taglist를 위해 다음행추가
 nnoremap <silent> <F7> :TlistUpdate<CR> 
