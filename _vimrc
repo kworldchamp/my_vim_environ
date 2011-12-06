@@ -108,6 +108,8 @@ Bundle 'Gundo'
 Bundle 'pep8'
 Bundle 'python_match.vim'
 Bundle 'c.vim'
+Bundle 'EasyGrep'
+Bundle 'grep.vim'
 
 "Bundle 'snipMate' "이걸 아래 fork된 프로젝트 사항으로 대체, 기존업데이트 문제로
 Bundle "git://github.com/honza/snipmate-snippets.git"
@@ -116,16 +118,19 @@ Bundle "git://github.com/tomtom/tlib_vim.git"
 Bundle "git://github.com/garbas/vim-snipmate.git"
 
 " schema
-Bundle 'vim-railscasts-theme'
-Bundle 'vim-colors-solarized'
+"Bundle 'jpo/vim-railscasts-theme'
+"Bundle 'altercation/vim-colors-solarized'
 
 " original repos on github
 "Bundle 'robhudson/snipmate_for_django'
 Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+"Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'othree/html5.vim'
 Bundle 'kevinw/pyflakes-vim'
+Bundle 'xolox/vim-shell'
+Bundle 'xolox/vim-session'
+Bundle 'xolox/vim-easytags'
 
 " vim-scripts repos
 "Bundle 'L9'
@@ -211,7 +216,7 @@ let g:closetag_html_style=1
 
 "========================================================================
 " Plugin : taglist.vim
-" Command : BundleSearch,  ...etc..
+" Command :
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Taglist를 위해 다음행추가
 nnoremap <silent> <F7> :TlistUpdate<CR> 
