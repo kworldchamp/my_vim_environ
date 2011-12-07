@@ -24,10 +24,10 @@ endf
 fun s:Return()
 	let tag = s:GetCurrentTag()
 	return tag != '' && match(getline('.'), '</'.tag.'>') > -1 ?
+				\ "\<C-X>\<cr>\<ESC>\O" : "\<cr>"
 	"by kwc mod AutoComplPop plugin과 겹쳐 사용시 '>'꺽쇠가 Enter입력시
 	"삭제되버리는데 이를 방지함과 동시에 c.vim에서 { 이볅후 바로 Enter쳤을
 	"때와 같은 동작을 하게 함
-				\ "\<C-X>\<cr>\<ESC>\O" : "\<cr>"
 endf
 
 fun s:InComment()
