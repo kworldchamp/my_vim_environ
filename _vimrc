@@ -1,6 +1,6 @@
 "========================================================================
 " vimrc 2011.11.23~
-
+set enc=utf-8 " gvim 최상단 도구메뉴가 한글이 제대로 나오게 하기 위함
 "========================================================================
 " testing...
 "au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
@@ -117,6 +117,7 @@ Bundle 'EasyGrep'
 Bundle 'grep.vim'
 Bundle 'RunView'
 Bundle 'closetag.vim'
+Bundle 'Smart-Parentheses'
 
 " for kk custom
 Bundle "kk"
@@ -141,8 +142,11 @@ Bundle 'kevinw/pyflakes-vim'
 "Bundle 'ujihisa/quickrun' "original version
 Bundle 'xolox/vim-shell'
 Bundle 'xolox/vim-session'
-Bundle 'xolox/vim-easytags'
+"Bundle 'xolox/vim-easytags'
 Bundle 'thinca/vim-quickrun'
+Bundle 'kien/rainbow_parentheses.vim'
+"html tag매칭시에 색깔 표시 됨(MatchTag)
+Bundle 'gregsexton/MatchTag'    
 
 " vim-scripts repos
 "Bundle 'L9'
@@ -163,6 +167,17 @@ filetype plugin indent on     " required!
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle command are not allowed..
 "bundle setting end
+
+"========================================================================
+" Plugin : rainbow_parentheses
+" Command : 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" C나 java에서 사용하기 적합한듯하다. html highlight에서 제대로 적용 안됨
+"au VimEnter * RainbowParenthesesToggle
+""au VimEnter * RainbowParenthesesLoadRound    " (), the default when toggling
+"au VimEnter * RainbowParenthesesLoadSquare   " []
+"au VimEnter * RainbowParenthesesLoadBraces   " {}
+"au VimEnter * RainbowParenthesesLoadChevrons " <>
 
 "========================================================================
 " Plugin : RunView
