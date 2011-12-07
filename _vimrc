@@ -143,6 +143,7 @@ Bundle 'xolox/vim-shell'
 Bundle 'xolox/vim-session'
 Bundle 'xolox/vim-easytags'
 Bundle 'thinca/vim-quickrun'
+Bundle 'kien/rainbow_parentheses.vim'
 
 " vim-scripts repos
 "Bundle 'L9'
@@ -200,7 +201,7 @@ let g:EasyMotion_keys = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRS
 "snipmate_for_django
 autocmd FileType python set ft=python.django " For SnipMate
 " For SnipMate, acp(AutocomplPop)/plugin 수정#htmldjango 추가, html5 plugin syntax 수정#syntax/htmldjango.vim 내용을 붙여넣기
-autocmd FileType html   set ft=htmldjango 
+"autocmd FileType html   set ft=htmldjango 
 
 "========================================================================
 " Plugin : AutocomplPop
