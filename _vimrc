@@ -116,6 +116,7 @@ Bundle 'c.vim'
 Bundle 'EasyGrep'
 Bundle 'grep.vim'
 Bundle 'RunView'
+Bundle 'closetag.vim'
 
 " for kk custom
 Bundle "kk"
