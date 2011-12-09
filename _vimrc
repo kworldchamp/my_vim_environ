@@ -117,7 +117,7 @@ Bundle 'EasyGrep'
 Bundle 'grep.vim'
 Bundle 'RunView'
 Bundle 'closetag.vim'
-Bundle 'Smart-Parentheses'
+Bundle 'pyte'
 
 " for kk custom
 Bundle "kk"
@@ -215,7 +215,7 @@ let g:EasyMotion_keys = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRS
 "snipmate_for_django
 autocmd FileType python set ft=python.django " For SnipMate
 " For SnipMate, acp(AutocomplPop)/plugin 수정#htmldjango 추가, html5 plugin syntax 수정#syntax/htmldjango.vim 내용을 붙여넣기
-"autocmd FileType html   set ft=htmldjango 
+autocmd FileType html   set ft=htmldjango 
 
 "========================================================================
 " Plugin : AutocomplPop
@@ -289,6 +289,9 @@ set tags+=$HOME/.vim/tags/python.ctags
 hi TabLineFill    ctermfg=black
 hi TabLineSel     ctermbg=blue
 hi PmenuSel ctermbg=blue
+
+" MatchParen schme by kwc
+hi MatchParen term=reverse cterm=bold ctermbg=Blue guibg=Blue ctermfg=1  guifg=red
 
 set ai ts=4 sts=4 et sw=4 "python standard tab format
 set nu
