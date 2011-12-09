@@ -55,8 +55,8 @@ set enc=utf-8
 "========================================================================
 " 메뉴바의 한글이 깨져 나올때 아래두줄  삽입으로 해결하거나 vimrc 최상단에
 " set enc=utf-8 입력하면 해결 가능
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
+"source $VIMRUNTIME/delmenu.vim
+"source $VIMRUNTIME/menu.vim
 exec ":lang mes ko.UTF-8"
 "imap <F2> :w<cr>:!"C:\Program Files\Internet explorer\iexplore.exe" Chaosrank.com<CR>
 

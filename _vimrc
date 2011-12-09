@@ -86,7 +86,6 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " My Bundles here:
-"Bundle 'fugitive.vim'
 Bundle 'FuzzyFinder'
 Bundle 'surround.vim'
 Bundle 'repeat.vim'
@@ -105,7 +104,6 @@ Bundle 'tohtml_wincp'
 Bundle 'VimExplorer'
 Bundle 'Vimball'
 Bundle 'winmanager'
-"Bundle 'pyflakes.vim'
 Bundle 'runzip'
 Bundle 'Toggle'
 Bundle 'TaskList.vim'
@@ -140,10 +138,10 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'othree/html5.vim'
 Bundle 'kevinw/pyflakes-vim'
 "Bundle 'ujihisa/quickrun' "original version
+Bundle 'thinca/vim-quickrun'
 Bundle 'xolox/vim-shell'
 Bundle 'xolox/vim-session'
 "Bundle 'xolox/vim-easytags'
-Bundle 'thinca/vim-quickrun'
 Bundle 'kien/rainbow_parentheses.vim'
 "html tag매칭시에 색깔 표시 됨(MatchTag)
 Bundle 'gregsexton/MatchTag'    
@@ -169,6 +167,14 @@ filetype plugin indent on     " required!
 "bundle setting end
 
 "========================================================================
+" Plugin : matchit.zip
+" Command : 
+"========================================================================
+"let loaded_matchit = 1 "이렇게 하면 불러오기 안함
+" { }, ( ) %키 하나로 매칭되게 하기 위해서 추가 해줌.
+autocmd FileType htmldjango   let b:match_words='<:>,<\@<=[ou]l\>[^>]*\%(>\|$\):<\@<=li\>:<\@<=/[ou]l>,<\@<=dl\>[^>]*\%(>\|$\):<\@<=d[td]\>:<\@<=/dl>,<\@<=\([^/][^ \t>]*\)[^>]*\%(>\|$\):<\@<=/\1>,(:),{:}'
+
+
 " Plugin : rainbow_parentheses
 " Command : 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
