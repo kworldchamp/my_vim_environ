@@ -20,7 +20,8 @@ map td :tabclose<CR>
 
 map <Tab> gt
 map <S-Tab> gT
-vmap <Tab> >gv
+" snipmate 새로운 버전에서 tab맵핑이 제대로 안되서 아래처럼 수정
+autocmd VimEnter *  xmap <Tab> >gv
 vmap <S-Tab> <gv
 
 "화면 이동하기
@@ -34,15 +35,23 @@ map <S-Down> ]c
 map <S-Up> [c
 map <S-Right> :diffg<CR>
 
+" 현재 사용하고 있는 terminal 설정이 xterm인데(한글putty 한텀) screen 사용시 변경된다. 한텀은 vim 맵핑시 Shift 키 혼용이 가능하나 scree사용시 이게안되므로 이에 따른 설정
+if match($TERM, "screen")!=-1
+    set term=xterm
+endif
+
 "map <F10> :!start c:\program files\internet explorer\iexplore.exe http://kr.engdic.yahoo.com/result.html?p=<cword><cr>
 "<F1>컴파일후 실행까지.
 map <F1> :!clear<CR> :w!<cr>:!gcc % -o %<.exe && ./%<.exe<cr>
 "map <F2> :!clear<CR> :w!<CR>:!g++ -Wall % -o %<.exe && ./%<.exe<CR>
 "map <F2> :!python %<CR>
-map <F2> :QuickRun python<CR>
-vmap <F2> :QuickRun python<CR>
+nmap <F2> :compiler pyunit<CR> :set makeprg=python\ %<CR>:make <CR> :cw 7<CR> 
+map <S-F2> :QuickRun python<CR>
+vmap <S-F2> :QuickRun python<CR>
 "map! <F2> <C-o>:!python %<CR>
-map! <F2> <C-o>:QuickRun  python<CR>
+"map! <F2> <C-o>:compiler pyunit<CR> :set makeprg=python\ %<CR> :make <CR> :cw 7<CR> 
+map! <F2> <C-o>:compiler pyunit<CR> <c-o>:set makeprg=python\ %<CR> <c-o>:make <CR> <c-o>:cw 7<CR> 
+map! <S-F2> <C-o>:QuickRun  python<CR>
 
 "컴파일시 에러난코드 바로 연결해주기다~
 nmap <F10> :set makeprg=gcc\ %<CR> :w<CR> :make <CR> :cw 7<CR> 
@@ -95,11 +104,13 @@ Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
 Bundle 'a.vim'
 Bundle 'AutoComplPop'
+Bundle 'Shougo/neocomplcache'
+Bundle 'Shougo/neocomplcache-snippets-complete'
 Bundle 'AutoClose'
 Bundle 'matchit.zip'
 Bundle 'matchparenpp'
 Bundle 'taglist-plus'
-Bundle 'taglist.vim'
+"Bundle 'taglist.vim'
 Bundle 'tohtml_wincp'
 Bundle 'VimExplorer'
 Bundle 'Vimball'
@@ -115,20 +126,24 @@ Bundle 'EasyGrep'
 Bundle 'grep.vim'
 Bundle 'RunView'
 Bundle 'closetag.vim'
-Bundle 'pyte'
+Bundle 'vimgtd--nianyang'
+"Bundle 'vimwiki'
+Bundle "mivok/vimtodo"
 
 " for kk custom
 Bundle "kk"
 
 "Bundle 'snipMate' " 기존 snipMate의 업데이트 문제로, 이것을 아래 fork된 프로젝트 사항으로 대체
+"Bundle 'snipMate'
 Bundle "git://github.com/honza/snipmate-snippets.git"
 Bundle "git://github.com/MarcWeber/vim-addon-mw-utils.git"
 Bundle "git://github.com/tomtom/tlib_vim.git"
 Bundle "git://github.com/garbas/vim-snipmate.git"
 
 " schema
-"Bundle 'jpo/vim-railscasts-theme'
-"Bundle 'altercation/vim-colors-solarized'
+Bundle 'jpo/vim-railscasts-theme'
+Bundle 'altercation/vim-colors-solarized'
+"Bundle 'pyte'
 
 " original repos on github
 "Bundle 'robhudson/snipmate_for_django'
@@ -167,14 +182,90 @@ filetype plugin indent on     " required!
 "bundle setting end
 
 "========================================================================
+" Plugin : Shougo/neocomplcache 관련 
+" Command : 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplcache.
+let g:neocomplcache_enable_at_startup = 1
+" Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
+" Use camel case completion.
+let g:neocomplcache_enable_camel_case_completion = 1
+" Use underbar completion.
+let g:neocomplcache_enable_underbar_completion = 1
+" Set minimum syntax keyword length.
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplcache_dictionary_filetype_lists = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+    \ }
+
+" Define keyword.
+if !exists('g:neocomplcache_keyword_patterns')
+  let g:neocomplcache_keyword_patterns = {}
+endif
+let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neocomplcache_snippets_expand)
+smap <C-k>     <Plug>(neocomplcache_snippets_expand)
+inoremap <expr><C-g>     neocomplcache#undo_completion()
+inoremap <expr><C-l>     neocomplcache#complete_common_string()
+
+" SuperTab like snippets behavior.
+"imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+"inoremap <expr><C-y>  neocomplcache#close_popup()
+"inoremap <expr><C-e>  neocomplcache#cancel_popup()
+
+" AutoComplPop like behavior.
+let g:neocomplcache_enable_auto_select = 0
+
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
+let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+
+"kwc 그동안 자주쓰던 입력된 단어중 i_c-n 안해도 자동으로 AutocomplPop 덕에
+"됐었으나 작동안해서 아래 추가 해서 적용
+au VimEnter * exec ":AutoComplPopEnable"
+"========================================================================
 " Plugin : matchit.zip
 " Command : 
-"========================================================================
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "let loaded_matchit = 1 "이렇게 하면 불러오기 안함
 " { }, ( ) %키 하나로 매칭되게 하기 위해서 추가 해줌.
 autocmd FileType htmldjango   let b:match_words='<:>,<\@<=[ou]l\>[^>]*\%(>\|$\):<\@<=li\>:<\@<=/[ou]l>,<\@<=dl\>[^>]*\%(>\|$\):<\@<=d[td]\>:<\@<=/dl>,<\@<=\([^/][^ \t>]*\)[^>]*\%(>\|$\):<\@<=/\1>,(:),{:}'
 
 
+"========================================================================
 " Plugin : rainbow_parentheses
 " Command : 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -210,7 +301,8 @@ map <leader>g :GundoToggle<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "let g:EasyMotion_leader_key = '<Leader>'
 let g:EasyMotion_leader_key = '-'
-let g:EasyMotion_keys = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+"let g:EasyMotion_keys = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+let g:EasyMotion_keys = '1234567890abcdefghijklmnopqrstuvwxyz'
 "let g:EasyMotion_mapping_w = '-w'
 "let g:EasyMotion_mapping_b = '-b'
 
@@ -219,7 +311,7 @@ let g:EasyMotion_keys = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRS
 " Command : 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "snipmate_for_django
-autocmd FileType python set ft=python.django " For SnipMate
+"autocmd FileType python set ft=python.django " For SnipMate
 " For SnipMate, acp(AutocomplPop)/plugin 수정#htmldjango 추가, html5 plugin syntax 수정#syntax/htmldjango.vim 내용을 붙여넣기
 autocmd FileType html   set ft=htmldjango 
 
@@ -245,6 +337,7 @@ nnoremap <silent> <leader>fb     :FufBuffer<CR>
 nnoremap <silent> <leader>fa     :FufCoverageFile<CR>
 nnoremap <silent> <leader>ff :FufFile<CR>
 nnoremap <silent> <leader>fd :FufDir<CR>
+nnoremap <silent> <leader>fr     :FufRenewCache<CR>
 
 "========================================================================
 " Plugin : closetag.vim
@@ -267,8 +360,8 @@ nnoremap <silent> <F9> :TlistSync<CR>
 "현재 키보드위치의 태그리스트를 보려면 파일의 원하는 위치에서 F9 를 누른다.
 
 "$VIM 에서 태그파일의 위치를 검사하기위해서 다음줄을 추가
-set tags=.\tags,..\tags,
-"set tags=./tags,tags,../tags,
+"set tags=.\tags,..\tags,
+set tags=./tags,tags,../tags,
 
 "========================================================================
 " python 에서 ctags 활용위한 설정
@@ -290,6 +383,11 @@ set tags+=$HOME/.vim/tags/python.ctags
 "set statusline=%<%F\ (%Y)\ [%1*%M%*%n%R%H]\ %=%8o'0x%04B\ %14(%c%V,%l/%LL%)
 "set statusline=%<%F%h%m%r%h%w%y\ %{strftime(\"%d/%m/%Y-%H:%M\")}%=\ col:%c%V\ ascii:%b\ pos:%o\ lin:%l\,%L\ %P
 "colorscheme koehler
+
+"syntax enable
+"let g:solarized_termcolors=256
+"set background=dark
+"colorscheme solarized
 
 " Tab schema
 hi TabLineFill    ctermfg=black
@@ -393,7 +491,7 @@ hi Repeat ctermfg=DarkYellow
 hi Format ctermfg=DarkYellow
 hi Character ctermfg=DarkYellow
 hi Special ctermfg=DarkYellow
-hi Constant ctermfg=DarkRed
+hi Constant ctermfg=Red
 
 if has("autocmd") "이전 작업줄 표시 http://kldp.org/node/28046 에서..
     " When editing a file, always jump to the last cursor position
